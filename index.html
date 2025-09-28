@@ -4,85 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Carta para Clara — Aniversario</title>
+  
+  <!-- Enlazamos las fuentes de Google -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#ffeef1;
-      --card:#ffd9e0;
-      --accent:#ff6b8a;
-      --muted:#6b4250;
-      --maxw:900px;
-    }
-    *{box-sizing:border-box}
-    body{
-      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      background:linear-gradient(180deg,var(--bg) 0%, #fff 100%);
-      margin:0;
-      color:var(--muted);
-      display:flex;
-      justify-content:center;
-      padding:30px 16px;
-      overflow-x: hidden; /* Evita scroll horizontal por los corazones */
-    }
-    
-    /* --- Animación de Corazones --- */
-    #hearts-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none; /* Para que no interfiera con el contenido */
-      z-index: -1; /* Para que esté detrás de todo */
-      overflow: hidden;
-    }
-
-    .heart {
-      position: absolute;
-      bottom: -50px; /* Empieza fuera de la pantalla */
-      color: var(--accent);
-      animation: floatUp linear forwards;
-      user-select: none; /* Evita que se puedan seleccionar */
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-110vh); /* Sube hasta desaparecer por arriba */
-        opacity: 0;
-      }
-    }
-    /* --- Fin de la Animación --- */
-
-    .wrapper{width:100%; max-width:var(--maxw)}
-
-    header{background:var(--card); padding:22px; border-radius:14px; box-shadow:0 6px 18px rgba(0,0,0,0.06); margin-bottom:16px}
-    .top-text{font-family:'Baloo 2', cursive; color:var(--accent); font-size:22px; text-align:center}
-    .subtext{font-size:14px; text-align:center; margin-top:6px}
-
-    .page{background:#fff; border-radius:12px; padding:18px; margin-bottom:12px; box-shadow:0 8px 20px rgba(0,0,0,0.04); border:1px solid rgba(0,0,0,0.03)}
-    .page h2{font-family:'Baloo 2'; color:var(--accent); margin:0 0 10px; font-size:20px}
-    .page p{line-height:1.5; font-size:15px; margin:0 0 10px}
-
-    .grid{display:grid; grid-template-columns:1fr 260px; gap:16px; align-items:start}
-    .img-box img{width:100%; height:100%; object-fit:cover; border-radius:8px}
-    .caption{font-size:13px; color:#9b5b6a}
-
-    @media (max-width:720px){
-      .grid{grid-template-columns:1fr}
-      header{padding:16px}
-    }
-
-    .section-title{display:flex; gap:10px; align-items:center}
-    .badge{background:var(--accent); color:#fff; padding:6px 10px; border-radius:999px; font-weight:600}
-
-    footer{font-size:13px; color:#8a5a66; text-align:center; margin-top:8px}
-  </style>
+  
+  <!-- Enlazamos nuestro archivo de estilos CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  
+  <!-- Contenedor para la animación de corazones -->
   <div id="hearts-container"></div>
 
   <div class="wrapper">
