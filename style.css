@@ -1,0 +1,213 @@
+/* --- Variables de Color y Diseño --- */
+:root {
+  --bg: #ffeef1;
+  --card: #ffd9e0;
+  --accent: #ff6b8a;
+  --muted: #6b4250;
+  --maxw: 900px;
+}
+
+/* --- Estilos Generales --- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(180deg, var(--bg) 0%, #fff 100%);
+  margin: 0;
+  color: var(--muted);
+  display: flex;
+  justify-content: center;
+  padding: 30px 16px;
+  overflow-x: hidden; /* Evita el desbordamiento horizontal */
+}
+
+/* --- Animación de Corazones --- */
+#hearts-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Permite hacer clic a través de él */
+  z-index: -1; /* Lo pone detrás de todo el contenido */
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  bottom: -50px; /* Comienza fuera de la pantalla */
+  color: var(--accent);
+  animation: floatUp linear forwards;
+  user-select: none; /* Evita que el texto del corazón sea seleccionable */
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    /* Mueve el corazón 110% de la altura de la ventana para asegurar que desaparezca */
+    transform: translateY(-110vh); 
+    opacity: 0;
+  }
+}
+
+/* --- Estructura y Contenido --- */
+.wrapper {
+  width: 100%;
+  max-width: var(--maxw);
+}
+
+header {
+  background: var(--card);
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  margin-bottom: 16px;
+}
+
+.top-text {
+  font-family: 'Baloo 2', cursive;
+  color: var(--accent);
+  font-size: 22px;
+  text-align: center;
+}
+
+.subtext {
+  font-size: 14px;
+  text-align: center;
+  margin-top: 6px;
+}
+
+.page {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.page h2 {
+  font-family: 'Baloo 2', cursive;
+  color: var(--accent);
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.page p {
+  line-height: 1.5;
+  font-size: 15px;
+  margin: 0 0 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 16px;
+  align-items: start;
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.section-title {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.badge {
+  background: var(--accent);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+footer {
+  font-size: 13px;
+  color: #8a5a66;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* --- Diseño Responsivo para Móviles --- */
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr; /* Apila las columnas en pantallas pequeñas */
+  }
+  header {
+    padding: 16px;
+  }
+}
+```
+
+---
+
+### Archivo `script.js`
+
+Este archivo se encarga de dos cosas: cargar las imágenes desde Imgur y generar dinámicamente los corazones de la animación.
+
+```javascript
+// Espera a que todo el contenido HTML se haya cargado antes de ejecutar el script
+document.addEventListener('DOMContentLoaded', () => {
+
+  // --- 1. Cargar las imágenes ---
+  
+  // Objeto con los links de las imágenes
+  const images = {
+    1: "https://i.imgur.com/4eKyVkB.jpg", // link imgur portada
+    2: "https://i.imgur.com/hiFpzO3.jpg", // link imgur panqueques/primera charla
+    3: "https://i.imgur.com/1VpwjKx.jpg", // link imgur videollamada
+    4: "https://i.imgur.com/x25sfQi.jpg", // link imgur primer beso/unicenter
+    5: "https://i.imgur.com/W0wknyb.jpg", // link imgur hamaca/beso largo
+    6: "https://i.imgur.com/cy4ZGCD.jpg"  // link imgur abrazo/final
+  };
+
+  // Recorre el objeto 'images' y asigna cada URL a su elemento <img> correspondiente
+  for (const n in images) {
+    const imgElement = document.getElementById("img" + n);
+    if (imgElement && images[n]) {
+      imgElement.src = images[n];
+    }
+  }
+
+  // --- 2. Crear la animación de corazones ---
+
+  const heartsContainer = document.getElementById('hearts-container');
+
+  if (heartsContainer) {
+    // Crea un nuevo corazón cada 300 milisegundos
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '♥'; // Puedes usar otros símbolos como '♡' o '💖'
+
+      // Propiedades aleatorias para cada corazón
+      const size = Math.random() * 20 + 10; // Tamaño entre 10px y 30px
+      const duration = Math.random() * 5 + 5; // Duración entre 5s y 10s
+      
+      heart.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
+      heart.style.fontSize = size + 'px';
+      heart.style.animationDuration = duration + 's';
+      heart.style.opacity = Math.random() * 0.7 + 0.3; // Opacidad entre 0.3 y 1.0
+
+      heartsContainer.appendChild(heart);
+
+      // Elimina el corazón del DOM después de que termine su animación para no sobrecargar la página
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000); // Convierte la duración a milisegundos
+
+    }, 300);
+  }
+
+});
