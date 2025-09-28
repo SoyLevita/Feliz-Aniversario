@@ -114,22 +114,7 @@
     </footer>
   </div>
 
-  <script>
-    // Variables con links de Imgur
-    const images = {
-      1: "https://i.imgur.com/4eKyVkB.jpg", // link imgur portada
-      2: "https://i.imgur.com/hiFpzO3.jpg", // link imgur panqueques/primera charla
-      3: "https://i.imgur.com/1VpwjKx.jpg", // link imgur videollamada
-      4: "https://i.imgur.com/x25sfQi.jpg", // link imgur primer beso/unicenter
-      5: "https://i.imgur.com/W0wknyb.jpg", // link imgur hamaca/beso largo
-      6: "https://i.imgur.com/cy4ZGCD.jpg"  // link imgur abrazo/final
-    };
-
-    // Reemplaza los src vacíos
-    for(const n in images){
-      const el = document.getElementById("img"+n);
-      if(el && images[n]) el.src = images[n];
-    }
-  </script>
+  <!-- Enlazamos nuestro archivo de JavaScript al final del body -->
+  <script src="script.js"></script>
 </body>
 </html>
